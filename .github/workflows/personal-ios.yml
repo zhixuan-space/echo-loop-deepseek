@@ -33,6 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           flutter --version
+          flutter precache --ios
           flutter pub get
           pod install --project-directory=ios
 
