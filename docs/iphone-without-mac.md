@@ -1,20 +1,25 @@
 # 没有 Mac：云端编译，再用 Windows 安装
 
-当前已经准备好手动云构建工作流 `.github/workflows/personal-ios.yml`。
-它尚未上传到你的 GitHub 仓库，也没有运行。当前没有可安装的 IPA。
+个人版已上传到公开仓库 [zhixuan-space/echo-loop-deepseek](https://github.com/zhixuan-space/echo-loop-deepseek)。
+首次成功的 [iPhone 云构建](https://github.com/zhixuan-space/echo-loop-deepseek/actions/runs/39932561903)
+于 2026-10-23 完成，源码提交为 `11cd350d5aa41ea14e9888a210a8db2f13ef3baa`。
+产物为 `Echo-Loop-DeepSeek-unsigned.ipa`，需要自行签名后安装。
+已下载检查：62,372,459 字节，ZIP 完整性通过，iPhone ARM64，最低 iOS 15.0，
+包含个人 DeepSeek 功能代码；SHA-256 为
+`b4fb87463e9844d34988cf15d9ea0fae308007ccf7ee5ae80710cb345eb2bda8`。
 
-## 登录与仓库
+## 下载与重新构建
 
-在当前应用里安装 GitHub 插件，并按其提示在 GitHub 官方页面登录、授权。
-不要把 GitHub 密码、Apple ID 密码或 DeepSeek Key 发送到聊天。
-连接后再确定新仓库名称和公开范围，再上传代码。
+在上述成功运行页面底部的 **Artifacts** 中，下载
+**Echo-Loop-DeepSeek-unsigned-iPhone**，解压得到 `.ipa`。
+下载需要登录 GitHub；本次云端产物于 2026-10-30 到期，已下载到电脑的文件不受此限制。
 
 GitHub 标准 macOS 托管 runner 在公开仓库中免费使用；私有仓库使用账户额度，
 超额可能计费。仓库公开范围应由你选择。
 
 ## 云端构建
 
-1. 将修改后的完整源码放入你自己的仓库，保留 `.github/workflows/personal-ios.yml`。
+1. 打开自己的仓库，保留 `.github/workflows/personal-ios.yml`。
 2. 打开仓库的 Actions 页面，选择 **Personal iPhone build**。
 3. 点击 **Run workflow**，选择包含修改代码的分支，运行。
 4. 成功后，在该次运行的 Artifacts 中下载
@@ -27,14 +32,21 @@ IPA 构建产物保留 7 天。它不会上传 App Store Connect、TestFlight �
 
 ## 在 Windows 上安装
 
-使用 **AltStore Classic / AltServer for Windows**，按照其官方文档准备
-iTunes、iCloud 和驱动。连接 iPhone 并信任电脑，然后用自己的 Apple ID
-完成安装工具要求的签名流程。在 AltStore Classic 中导入自己的 IPA。
+1. 按 [AltStore Classic 的 Windows 官方说明](https://faq.altstore.io/altstore-classic/how-to-install-altstore-windows)，
+   安装 Apple 官网版 iTunes、iCloud，再安装 AltServer for Windows。
+   已有 Microsoft Store 版 iCloud 时，先查看官方文档提供的兼容步骤。
+2. 用数据线连接并解锁 iPhone，在手机上选择「信任此电脑」；在 iTunes 中启用 Wi-Fi 同步。
+3. 从 Windows 右下角 AltServer 图标选择 **Install AltStore → 你的 iPhone**，
+   在安装工具中输入自己的 Apple ID，按提示完成验证。
+4. 在手机「设置 → 通用 → VPN 与设备管理」信任对应开发者。
+   iOS 16 及以后还需在「设置 → 隐私与安全 → 开发者模式」开启并按提示重启。
+5. 将 `.ipa` 通过你常用的文件传输方式放进 iPhone 的「文件」App。
+   在 AltStore Classic 的 **My Apps** 页面点击 **+**，选择该 IPA，保持 AltServer 运行并完成安装。
 
 IPA 未签名，不能在 iPhone 文件 App 中直接点开安装；签名由安装工具使用你的
 Apple 账号完成。普通 Apple ID 通常需要每 7 天刷新，且存在同时安装数量限制。
-iOS 16 及以后还可能需要在设备上启用开发者模式，按安装工具提示操作。
 没有实际在目标手机测试前，不能保证该 IPA 的全部插件和本地识别都正常。
+Apple ID 密码只在安装工具的登录界面输入；DeepSeek Key 只在应用设置中输入。
 
 ## 首次使用
 
@@ -45,8 +57,10 @@ iOS 16 及以后还可能需要在设备上启用开发者模式，按安装工�
 ## 当前验证范围
 
 已检查 workflow YAML、Bash 语法、手动触发及只读权限。
-由于本机是 Windows，尚未执行 macOS / Xcode 构建、Apple 签名或手机安装。
-已有客户端测试：289 项通过、2 项原有跳过；这不等于 iOS 原生构建已通过。
+GitHub macOS runner 已完成依赖安装、iPhone release 编译、IPA 打包和产物上传。
+首次构建缺少 iOS engine 缓存，补充 `flutter precache --ios` 后重新运行成功。
+已有客户端测试：289 项通过、2 项原有跳过；相关 Dart 文件静态分析通过。
+尚未完成 Apple 签名、手机安装、真实 DeepSeek 请求或手机上的离线转录验收。
 
 参考：
 

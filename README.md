@@ -2,6 +2,7 @@
 > 设置入口：**设置 → 个人 AI · DeepSeek**。
 > [使用说明](docs/personal-deepseek.md) · [没有 Mac 的 iPhone 构建与安装](docs/iphone-without-mac.md)。
 > 本仓库使用手动 **Personal iPhone build** 工作流，构建未签名 IPA 后自行签名安装。
+> [已成功的 iPhone 构建与下载](https://github.com/zhixuan-space/echo-loop-deepseek/actions/runs/39932561903)：适用于 iOS 15.0 及以上，尚需 Apple 签名与真机验证。
 
 <div align="right">
   <a href="./README.en.md">English</a> | <strong>简体中文</strong>

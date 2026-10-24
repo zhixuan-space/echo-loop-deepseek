@@ -4,6 +4,8 @@
 
 ## 本次完成
 
+- [x] 完成个人 iPhone 云构建与产物检查（2026-10-24）：公开仓库 `zhixuan-space/echo-loop-deepseek` 已上传；修复 CocoaPods 前缺少 iOS engine 缓存的问题，加入 `flutter precache --ios`。云构建 [39932561903](https://github.com/zhixuan-space/echo-loop-deepseek/actions/runs/39932561903) 成功，构建提交 `11cd350d5aa41ea14e9888a210a8db2f13ef3baa`。下载的未签名 IPA 为 62,372,459 字节，ZIP CRC、iPhone ARM64、最低 iOS 15.0 和个人 AI 代码标记检查通过。更新 Windows/AltStore 安装说明。未运行 `scripts/check.sh`：本轮仅修复构建配置、整理文档和检查产物，原有 289 项定向测试结果仍适用。尚未 Apple 签名、真机安装、真实 DeepSeek 请求或手机 ASR 验收。**完成时间**：2026-10-24（北京时间）。
+
 - [x] 准备无 Mac 的个人 iPhone 云构建（2026-10-23）：新增仅手动触发的 `personal-ios.yml`，使用固定版本 Flutter 在 macOS runner 上构建未签名 iPhone IPA，产物保留 7 天；权限仅为仓库读取，不需要 Apple 或 DeepSeek 密钥，不上传商店。新增 Windows/AltStore 安装说明。YAML、Action 固定 SHA、权限和 Bash 语法检查通过，`git diff --check` 通过。未运行 `scripts/check.sh`：本次仅增加构建配置和文档；未执行云构建、签名或真机安装，等待 GitHub 连接和用户仓库设置。**完成时间**：2026-10-23（北京时间）。
 
 - [x] 个人 DeepSeek 文本服务与离线字幕入口（2026-10-23）：新增本机安全存储配置、密钥遮罩与连接测试；在现有翻译、解析、意群、AI 词典和聊天客户端中接入用户自己的 DeepSeek 服务。个人文本功能无需官方登录或会员，保留原有数据模型和缓存；意群须无损还原原文，空结果、截断和损坏流不作为成功结果。聊天支持上下文、引用、流式回答和取消。个人模式恢复本地 Whisper 字幕入口并默认选中；不改变官方会员状态。新增 26 项测试，12 组定向目标共 289 项通过、2 项原有测试跳过，全部改动 Dart 范围静态分析无问题。未运行 `scripts/check.sh`：定向检查覆盖本次改动；未运行真机/Maestro、真实 DeepSeek 请求或打包：当前环境未完成移动端构建与设备配置，且没有用户 API Key。本地字幕准确率与稳定性需在目标设备验证。**完成时间**：2026-10-23（北京时间）；使用说明见 `docs/personal-deepseek.md`。
